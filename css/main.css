@@ -2400,7 +2400,7 @@ html.no-csstransitions .home-content__main {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 80%;
     height: 100%;
     opacity: .8;
     background: -moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
