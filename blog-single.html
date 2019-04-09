@@ -97,55 +97,69 @@
             <div class="col-full blog-content__main">
 
                 <p class="lead">¿Qué es la inyección de dependencias y para qué sirve?.</p>
+
+                <p>El patrón de <strong>inyección de dependencia</strong> siempre ha sido uno de los conceptos que cuesta entender en el mundo del desarrollo de software sobre todo a la gente que esta empezando. <strong>¿Para qué sirve este patrón de diseño y cuál es su utilidad?.</strong> Normalmente cuando nosotros programamos en el día a día con la programación orientada a objeto nos encontramos construyendo objetos y relacionando objetos utilizando dependencias.
+                </p>
+
+                <center>
+                    <p>
+                        <img src="images/inyecciondependenciaobjeto.png" alt="DI">
+                    </p>
+                </center>
                 
                 <p>La inyección de dependencias (DI, por sus siglas en inglés) es un patrón usado en el diseño orientado a objetos de una aplicación. Es parte de uno de los cinco principios de diseño de clases conocido como S.O.L.I.D.
 
-                Como todo patrón de diseño, DI tiene como finalidad solucionar un problema común que los programadore encuentran en la construcción de aplicaciones. Este es, mantener los componentes o capas de una aplicación lo más desacopladas posible. Busca que sea mucho más sencillo reemplazar la implementación de un componente por otro. Así, evitar un gran cambio o impacto en la aplicación que pudiera originar que deje de funcionar por completo.
+                Como todo patrón de diseño, DI tiene como finalidad solucionar un problema común que los programadores encuentran en la construcción de aplicaciones. Este es, mantener los componentes o capas de una aplicación lo más desacopladas posible. Busca que sea mucho más sencillo reemplazar la implementación de un componente por otro. Así, evitar un gran cambio o impacto en la aplicación que pudiera originar que deje de funcionar por completo.
                 </p>
+
                 <p>Para cumplir con dicho objetivo, DI nos permite inyectar comportamientos a componentes haciendo que nuestras piezas de software sean independientes y se comuniquen únicamente a través de una interface. Esto extrae responsabilidades a un componente para delegarlas en otro, establecimiento un mecanismo a través del cual el nuevo componente puede ser cambiado en tiempo de ejecución. Para lograr esta tarea DI se basa en un patrón mas genérico llamado inversión de Conrtol (Inversion of Control).
                 </p>
 
-                <center><p>
-                <img src="images/inyecciondependenciaobjeto.png" alt="DI" align="middle">
-                </p></center>
+                <center>
+                    <p>
+                        <img src="images/DI.png" alt="DI">
+                    </p>
+                </center>
 
-                <h2>Large Heading</h2>
-
-                <p>Harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus <a href="http://#">omnis voluptas assumenda est</a> id quod maxime placeat facere possimus, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et.</p>
-
-                <blockquote><p>This is a simple example of a styled blockquote. A blockquote tag typically specifies a section that is quoted from another source of some sort, or highlighting text in your post.</p></blockquote>
-
-                <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
-
-                <h3>Smaller Heading</h3>
-
-                <p>Dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.
-
-<pre><code>
-code {
-    font-size: 1.4rem;
-    margin: 0 .2rem;
-    padding: .2rem .6rem;
-    white-space: nowrap;
-    background: #F1F1F1;
-    border: 1px solid #E1E1E1;	
-    border-radius: 3px;
-}
-</code></pre>
-
-                <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.</p>
+                <h2>La inyección de dependencias involucra 4 roles:</h2>
 
                 <ul>
-                    <li>Donec nulla non metus auctor fringilla.
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                        </ul>
-                    </li>
-                    <li>Donec nulla non metus auctor fringilla.</li>
-                    <li>Donec nulla non metus auctor fringilla.</li>
+                    <li>Las interfaces que definen las operaciones de los servicios - no necesariamente tienen que ser interfaces, sino que puede ser una clase abstracta.</li>
+                    <li>Los servicios, que implementan las interfaces anteriores, que se van a inyectar.</li>
+                    <li>Los clientes que usarán los servicios.</li>
+                    <li>El inyector, que es el encargado de construir e inyectar los servicios en los clientes.</li>
                 </ul>
+
+                <h2>Tipos de inyección de dependencias</h2>
+
+                <p>La <strong>inyección de dependencias</strong> por <i>constructor</i> es cuando la creación de la instancia no depende de la clase.</p>
+
+                <pre><code>
+                public class TextEditor {
+                   private SpellChecker spellChecker;
+
+                   public TextEditor(SpellChecker spellChecker) {
+
+                      this.spellChecker = spellChecker;
+                   }
+
+                   public void spellCheck() {
+                      spellChecker.checkSpelling();
+                   }
+                }
+                </code></pre>
+
+                <p>La <strong>inyección de dependencias</strong> mediante <i>setters</i> lo que permite mayor flexibilidad. El cliente expone un método set que utiliza el inyector para inyectar la dependencia.</p>
+
+                <pre><code>
+                public class TextEditor {
+                    private SpellChecker spellChecker;
+
+                    public void setSpellChecker(SpellChecker spellChecker) {
+                       this.spellChecker = spellChecker;
+                    }
+                }
+                </code></pre>
 
                 <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
 
