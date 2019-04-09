@@ -103,7 +103,7 @@
 
                 <center>
                     <p>
-                        <img src="images/inyecciondependenciaobjeto.png" alt="DI">
+                        <img src="images/inyecciondependenciaobjeto.png" alt="">
                     </p>
                 </center>
                 
@@ -112,12 +112,14 @@
                 Como todo patrón de diseño, DI tiene como finalidad solucionar un problema común que los programadores encuentran en la construcción de aplicaciones. Este es, mantener los componentes o capas de una aplicación lo más desacopladas posible. Busca que sea mucho más sencillo reemplazar la implementación de un componente por otro. Así, evitar un gran cambio o impacto en la aplicación que pudiera originar que deje de funcionar por completo.
                 </p>
 
+                <blockquote><p>Los patrones de diseño son una opción, no un requerimiento.</p></blockquote>
+
                 <p>Para cumplir con dicho objetivo, DI nos permite inyectar comportamientos a componentes haciendo que nuestras piezas de software sean independientes y se comuniquen únicamente a través de una interface. Esto extrae responsabilidades a un componente para delegarlas en otro, establecimiento un mecanismo a través del cual el nuevo componente puede ser cambiado en tiempo de ejecución. Para lograr esta tarea DI se basa en un patrón mas genérico llamado inversión de Conrtol (Inversion of Control).
                 </p>
 
                 <center>
                     <p>
-                        <img src="images/DI.png" alt="DI">
+                        <img src="images/DI.png" alt="">
                     </p>
                 </center>
 
@@ -161,16 +163,65 @@
                 }
                 </code></pre>
 
-                <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+               <p>La <strong>inyección de dependencias</strong> a traveś de una <i>interfaz</i></p>
+
+                <pre><code>
+                // Interfaz servicio Setter.
+                public interface ServiceSetter {
+                    public void setService(Service service);
+                }
+
+                // Clase cliente 
+                public class Client implements ServiceSetter {
+                    private Service service;
+
+                    @Override
+                    public void setService(Service service) {
+                        this.service = service;
+                    }
+                }
+                </code></pre>
+
+                <h3>Frameworks</h3>
+
+                <p>Pa implementar la DI hay muchos frameworks que realizan la tarea del inyector. Sin embargo, a estos frameworks usualmente se les conoce como <strong>Contenedores de DI</strong>, porque implementan una especie de contenedor o almacén en donde se guardan las dependencias para cuando necesiten ser resueltas en tiempo de ejecución.
+                </p>
+
+                <p>Ejemplo usando Spring-Framework
+                </p>
+
+                <pre><code>
+                public class Injector {
+                  public static void main(String[] args) {
+                    BeanFactory beanfactory = new ClassPathXmlApplicationContext("Beans.xml");
+                    Client client = (Client) beanfactory.getBean("client");
+                    System.out.println(client.greet());
+                  }
+                }
+
+                 <?xml version="1.0" encoding="UTF-8"?>
+                 <beans xmlns="http://www.springframework.org/schema/beans"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+                    <bean id="service" class="ExampleService">
+                    </bean>
+
+                    <bean id="client" class="Client">
+                        <constructor-arg value="service" />        
+                    </bean>
+                </beans>
+                </code></pre>
 
                 <p class="blog-content__tags">
                     <span>Post Tags</span>
 
                     <span class="blog-content__tag-list">
-                        <a href="#0">orci</a>
-                        <a href="#0">lectus</a>
-                        <a href="#0">varius</a>
-                        <a href="#0">turpis</a>
+                        <a href="#0">DI</a>
+                        <a href="#0">Inyección</a>
+                        <a href="#0">Dependencias</a>
+                        <a href="#0">IOC</a>
                     </span>
 
                 </p>
@@ -179,21 +230,21 @@
                     <div class="blog-content__nav">
                         <div class="blog-content__prev">
                             <a href="#0" rel="prev">
-                                <span>Previous Post</span>
-                                Tips on Minimalist Design 
+                                <span>Post anterior</span>
+                                TP4
                             </a>
                         </div>
                         <div class="blog-content__next">
                             <a href="#0" rel="next">
-                                <span>Next Post</span>
-                                Less Is More 
+                                <span>Siguiente Post</span>
+                                TP6 
                             </a>
                         </div>
                     </div>
 
                     <div class="blog-content__all">
-                        <a href="blog.html" class="btn btn--primary">
-                            View All Post
+                        <a href="#0" class="btn btn--primary">
+                            Ver todos los Posts
                         </a>
                     </div>
                 </div>
@@ -211,7 +262,7 @@
         <div id="comments" class="row">
             <div class="col-full">
 
-               <h3>5 Comments</h3>
+               <h3>5 Comentarios</h3>
 
                <!-- commentlist -->
                <ol class="commentlist">
@@ -225,17 +276,16 @@
                         <div class="comment__content">
 
                             <div class="comment__info">
-                                <cite>Itachi Uchiha</cite>
+                                <cite>Juan</cite>
 
                                 <div class="comment__meta">
-                                    <time class="comment__time">Sep 16, 2017 @ 23:05</time>
-                                    <span class="sep">|</span><a class="reply" href="#">Reply</a>
+                                    <time class="comment__time">Abril 8, 2019 @ 22:05</time>
+                                    <span class="sep">|</span><a class="reply" href="#">Responder</a>
                                 </div>
                             </div>
 
                             <div class="comment__text">
-                            <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum vulputate,
-                            facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua praesent.</p>
+                            <p>No me he enterado de nada hulio</p>
                             </div>
 
                         </div>
@@ -251,18 +301,16 @@
                         <div class="comment__content">
 
                             <div class="comment__info">
-                            <cite>John Doe</cite>
+                            <cite>El Robe</cite>
 
                             <div class="comment__meta">
-                                <time class="comment__time">Sep 16, 2017 @ 24:05</time>
-                                <span class="sep">|</span><a class="reply" href="#">Reply</a>
+                                <time class="comment__time">Abril 8, 2019 @ 23:05</time>
+                                <span class="sep">|</span><a class="reply" href="#">Responder</a>
                             </div>
                             </div>
 
                             <div class="comment__text">
-                            <p>Sumo euismod dissentiunt ne sit, ad eos iudico qualisque adversarium, tota falli et mei. Esse euismod
-                            urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec ad, nec et
-                            tantas semper delicatissimi.</p>
+                            <p>"El mejor código es el que se quita".</p>
                             </div>
 
                         </div>
@@ -278,18 +326,16 @@
                                 <div class="comment__content">
 
                                     <div class="comment__info">
-                                        <cite>Kakashi Hatake</cite>
+                                        <cite>Delegao</cite>
 
                                         <div class="comment__meta">
-                                            <time class="comment__time">Sep 16, 2017 @ 25:05</time>
-                                            <span class="sep">|</span><a class="reply" href="#">Reply</a>
+                                            <time class="comment__time">Abril 8, 2019 @ 00:15</time>
+                                            <span class="sep">|</span><a class="reply" href="#">Responder</a>
                                         </div>
                                     </div>
 
                                     <div class="comment__text">
-                                        <p>Duis sed odio sit amet nibh vulputate
-                                        cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
-                                        cursus a sit amet mauris</p>
+                                        <p>XD</p>
                                     </div>
 
                                 </div>
@@ -308,14 +354,13 @@
                                             <cite>John Doe</cite>
 
                                             <div class="comment__meta">
-                                                <time class="comment__time">Sep 16, 2017 @ 25:15</time>
+                                                <time class="comment__time">Abril 8, 2019 @ 00:25</time>
                                                 <span class="sep">|</span><a class="reply" href="#">Reply</a>
                                             </div>
                                             </div>
 
                                             <div class="comment__text">
-                                            <p>Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est
-                                            etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.</p>
+                                            <p>Es la verdad, me lo dijo mi maestro.</p>
                                             </div>
 
                                         </div>
@@ -339,16 +384,16 @@
                         <div class="comment__content">
 
                             <div class="comment__info">
-                            <cite>Shikamaru Nara</cite>
+                            <cite>Deivi</cite>
 
                             <div class="comment__meta">
-                                <time class="comment-time">Sep 16, 2017 @ 25:15</time>
-                                <span class="sep">|</span><a class="reply" href="#">Reply</a>
+                                <time class="comment-time">Abril 9, 2019 @ 18:15</time>
+                                <span class="sep">|</span><a class="reply" href="#">Responder</a>
                             </div>
                             </div>
 
                             <div class="comment__text">
-                            <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
+                            <p>Te faltan cosas.</p>
                             </div>
 
                         </div>
@@ -360,17 +405,17 @@
                <!-- respond -->
                <div class="respond">
 
-                    <h3>Leave a Comment</h3>
+                    <h3>Dejar un comentario</h3>
 
                     <form name="contactForm" id="contactForm" method="post" action="">
                         <fieldset>
 
                         <div class="form-field">
-                                <input name="cName" type="text" id="cName" class="full-width" placeholder="Your Name" value="">
+                                <input name="cName" type="text" id="cName" class="full-width" placeholder="Tu nombre" value="">
                         </div>
 
                         <div class="form-field">
-                                <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Your Email" value="">
+                                <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Tu Email" value="">
                         </div>
 
                         <div class="form-field">
@@ -378,10 +423,10 @@
                         </div>
 
                         <div class="message form-field">
-                            <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
+                            <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu mensaje"></textarea>
                         </div>
 
-                        <button type="submit" class="submit btn--primary">Submit</button>
+                        <button type="submit" class="submit btn--primary">Enviar</button>
 
                         </fieldset>
                     </form> <!-- Form End -->
@@ -433,8 +478,7 @@
     
                 <div class="col-twelve">
                     <div class="copyright">
-                        <span>© Copyright Hola 2017</span> 
-                        <span>Design by <a href="https://www.styleshout.com/">styleshout</a></span>	
+                        <span>© Copyright EddyBB 2019</span> 
                     </div>
     
                     <div class="go-top">
